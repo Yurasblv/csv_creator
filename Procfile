@@ -1,2 +1,3 @@
-web: gunicorn DummyCSV.wsgi & celery --app=DummyCSV worker & wait -n
+web: gunicorn DummyCSV.wsgi
+celery: celery -A DummyCSV worker -l INFO
 release: python manage.py migrate
