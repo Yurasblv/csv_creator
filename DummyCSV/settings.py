@@ -84,8 +84,11 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
 CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
+CELERY_BROKER_URL = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -97,3 +100,4 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 django_heroku.settings(locals())
+BROKER_POOL_LIMIT = 3
