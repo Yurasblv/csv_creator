@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block nav %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                 <div class="navbar-brand mb-0 h1">DummyCSV</div>
+
+             </div>
+        </nav>
+{% endblock %}
+{% block loginform %}
+    <div class="container d-flex justify-content-center" style="margin-top:200px">
+<form method="post">
+    {% csrf_token %}
+<h2>Login</h2>
+      <div>
+            <p>{{ form.username }}</p>
+            <p>{{ form.password }}</p>
+    <input type="submit" class="btn btn-success">
+</div>
+</form>
+    </div>
+{% endblock %}

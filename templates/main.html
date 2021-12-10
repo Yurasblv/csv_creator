@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block nav %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                 <div class="navbar-brand mb-0 h1">DummyCSV</div>
+                                         <div class="flex-grow-1">
+                     <a class="nav-link" href="{% url 'csv_list' %}">Schemas</a>
+                 </div>
+             </div>
+        </nav>
+{% endblock %}
+{% block csvform %}
+    <h2>Table</h2>
+    <form method="post">
+    {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <h2>Rows</h2>
+         {{ row.management_form }}
+       <div id = 'form_set'>
+           {% for r in row %}
+                <div class="form-inline">
+                    {% bootstrap_form r show_label=0 field_class='p-1' %}
+                </div>
+           {% endfor %}
+      </div>
+    <div id = "empty_form" class="d-none">
+        <div class="form-inline">
+            {% bootstrap_form row.empty_form show_label=0 field_class='p-1 ' %}
+        </div>
+    </div>
+        <button type="button" class="btn btn-primary" id=add_row>Add row</button>
+    </form>
+{% endblock %}
+
+{% block script %}
+    <script>
+    const range_appear = (row_type) => {
+    let row = $(row_type).parents(".form-inline")
+    let from = $(row).find("[id$='range_from']")
+    let to = $(row).find("[id$='range_to']")
+    if( $(row_type).val() === "Text" || $(row_type).val() === "Integer" ) {
+        $(from).show()
+        $(to).show()
+    }
+    else {
+        $(from).hide()
+        $(to).hide()
+
+    }
+  }
+  $(document).ready(function() {
+    $('#add_row').click(function() {
+        var form_idx = $('#id_row_set-TOTAL_FORMS').val();
+        $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+        $('#id_row_set-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+  $("[id$='row_type']").each(
+       function() {range_appear ($(this))}
+      )
+
+    $("[id$='row_type']").change(
+        (e) => {
+            range_appear(e.target)
+    }
+ )
+});
+    </script>
+{% endblock %}
+
+

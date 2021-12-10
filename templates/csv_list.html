@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block nav %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                 <div class="navbar-brand mb-0 h1">DummyCSV</div>
+             </div>
+        </nav>
+{% endblock %}
+{% block csvform %}
+<h2>Data schemas</h2>
+<a href="{% url 'main_page' %}">
+    <button type="button" class="btn btn-success">New schema</button>
+</a>
+<table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for schema in object_list %}
+    <tr>
+        <th scope="row">{{schema.id}}</th>
+        <td><a href="{% url 'csv_generate' schema.id %}"><button type="button" class="btn btn-link">{{ schema.name }}</button></a></td>
+        <td>{{ schema.updated_at }}</td>
+        <td>
+            <a href="{% url 'csv_delete' schema.id %}">
+                <button type="button" class="btn btn-link text-danger">Delete</button>
+            </a>
+        </td>
+    </tr>
+    {% empty %}
+       <p>No schemas yet.</p>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
