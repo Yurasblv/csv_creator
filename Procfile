@@ -1,4 +1,5 @@
 web: gunicorn DummyCSV.wsgi
 release: python manage.py migrate
-worker: celery -A DummyCSV worker -l info -B
+worker: celery -A DummyCSV worker -l info
+
 
