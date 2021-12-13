@@ -84,7 +84,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-CELERY_BROKER_URL = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
+CELERY_BROKER_URL = 'redis://:p934f112edf2d7818c1f4dc5c435a6d90df3fa0d520d420353f230a450706f496@ec2-52-51-200-118.eu-west-1.compute.amazonaws.com:11300'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
